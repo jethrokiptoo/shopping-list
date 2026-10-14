@@ -1,11 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloom Basket | Shopping Planner</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="index.js"></script>
 </head>
-<body>
-    
+<body> 
+    <main class="basket">
+      <header>
+        <p>YOUR SMART SHOPPING PLANNER</p>
+        <h1>Bloom Basket</h1>
+        <p>Plan your shopping, one item at a time.</p>
+      </header>
+
+      <form id="shopping-form">
+        <input id="item-name" type="text"
+          placeholder="What do you need?" required>
+
+        <input id="item-price" type="number"
+          placeholder="Price (KSh)" min="0" step="0.01" required>
+
+        <button type="submit">+ Add Item</button>
+      </form>
+
+      <input id="search" type="search"
+        placeholder="Search your shopping list...">
+
+      <section class="dashboard">
+        <div>
+          <p>Amount spent</p>
+          <h2 id="total">KSh 0.00</h2>
+        </div>
+        <div>
+          <p>Total items</p>
+          <h2 id="count">0</h2>
+        </div>
+        <div>
+          <p>Purchased</p>
+          <h2 id="bought">0</h2>
+        </div>
+        <div>
+          <p>Remaining</p>
+          <h2 id="remaining">0</h2>
+        </div>
+      </section>
+
+      <div class="progress-track">
+        <div id="progress"></div>
+      </div>
+      <p id="progress-text">0% completed</p>
+
+      <h2>My Shopping List</h2>
+      <ul id="shopping-list"></ul>
+      <p id="empty">Your basket is empty. Add your first item!</p>
+
+      <button id="clear" type="button" class="clear">
+        Clear Shopping List
+      </button>
+
+      <p id="status" aria-live="polite">Your list is ready.</p>
+    </main>
+  
 </body>
 </html>

@@ -1,0 +1,139 @@
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 30px 16px;
+      background: #fbfaf5;
+      color: #23372f;
+      font-family: Arial, sans-serif;
+    }
+
+    .basket {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    header {
+      background: #153f35;
+      color: white;
+      padding: 35px 25px;
+      border-radius: 20px;
+      margin-bottom: 25px;
+    }
+
+    header h1 {
+      color: #d9f1a5;
+      font-size: 2.5rem;
+      margin: 10px 0;
+    }
+
+    form, .dashboard, .shopping-item {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    input {
+      min-width: 0;
+      padding: 13px;
+      border: 1px solid #d6dfd6;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    form input:first-child { flex: 2; }
+    form input:nth-child(2) { flex: 1; }
+
+    button {
+      padding: 11px 14px;
+      background: #24765b;
+      color: white;
+      border: 0;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+
+    button:hover { opacity: 0.85; }
+
+    #search {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 25px 0;
+    }
+
+    .dashboard > div {
+      background: white;
+      border: 1px solid #e1e8df;
+      padding: 16px;
+      border-radius: 14px;
+    }
+
+    .dashboard p { color: #7c8c82; margin: 0; }
+    .dashboard h2 { overflow-wrap: anywhere; }
+
+    .progress-track {
+      height: 12px;
+      background: #e3e9df;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    #progress {
+      width: 0;
+      height: 100%;
+      background: #24765b;
+      transition: width 0.3s;
+    }
+
+    #progress-text { color: #7c8c82; }
+
+    #shopping-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .shopping-item {
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border: 1px solid #e1e8df;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .details, .actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .purchased {
+      background: #edf6e4;
+    }
+
+    .purchased strong {
+      text-decoration: line-through;
+      color: #7c8c82;
+    }
+
+    .clear { background: #a43f3f; }
+    #status { color: #24765b; }
+
+    [hidden] { display: none !important; }
+
+    @media (max-width: 520px) {
+      form { flex-direction: column; }
+      form input { width: 100%; }
+      .shopping-item { align-items: flex-start; }
+      .actions { width: 100%; }
+      .actions button { flex: 1; }
+    }
+  
