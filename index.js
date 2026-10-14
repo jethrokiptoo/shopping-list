@@ -1,9 +1,9 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Create the shopping list array
+  
   let items = [];
 
-  // 2. Load saved items
+ 
   try {
     items = JSON.parse(
       localStorage.getItem("bloomBasketItems") || "[]"
@@ -28,10 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     items = [];
   }
 
-  // 3. Create the webpage interface
- 
-
-  // 4. Get the elements we need
+  
   const form = document.querySelector("#shopping-form");
   const nameInput = document.querySelector("#item-name");
   const priceInput = document.querySelector("#item-price");
@@ -46,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       currency: "KES"
     }).format(amount);
 
-  // 5. Save the shopping list
+  
   function saveItems() {
     try {
       localStorage.setItem(
@@ -59,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 6. Display items and update the dashboard
+ 
   function renderItems() {
     list.replaceChildren();
 
@@ -186,7 +183,6 @@ document.addEventListener("DOMContentLoaded", () => {
       `${percentage}% completed`;
   }
 
-  // 7. Add a new item
   form.addEventListener("submit", event => {
     event.preventDefault();
 
@@ -238,12 +234,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 10. Add the design
+
   const style = document.createElement("style");
 
 
   document.head.appendChild(style);
 
-  // 11. Show saved items on startup
   renderItems();
 });
