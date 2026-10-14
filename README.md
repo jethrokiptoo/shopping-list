@@ -1,23 +1,10 @@
-# 🌿 Bloom Basket — Smart Shopping List
+Bloom Basket — Smart Shopping List
 
 **Shop smart. Spend wisely. Live better.**
 
 Bloom Basket is a stylish, responsive shopping-list web application designed to help users organize their shopping, track purchased items, and manage their spending. Built with HTML, CSS, and JavaScript, it combines a clean user interface with practical shopping-list features.
 
-## ✨ Features
 
-- **➕ Add Items:** Add shopping items with their names and prices in Kenyan Shillings (KSh).
-- **✅ Mark as Purchased:** Mark items as purchased and distinguish them visually.
-- **✏️ Edit Items:** Update item names and prices whenever necessary.
-- **🗑️ Remove Items:** Delete individual items from the shopping list.
-- **🧹 Clear Shopping List:** Remove all items when starting a new shopping trip.
-- **💰 Cost Tracking:** Automatically calculate the total cost of purchased items.
-- **🔍 Search Items:** Find items quickly using the search field.
-- **📊 Shopping Progress:** Track purchased items and remaining items using a progress bar.
-- **💾 Automatic Saving:** Use browser local storage to preserve shopping-list data after refreshing the page.
-- **📱 Responsive Design:** Enjoy a layout designed for desktops, tablets, and mobile phones.
-
-## 🛠️ Technologies Used
 
 - **HTML5** — structures the webpage and its content.
 - **CSS3** — provides the layout, colors, animations, and responsive styling.
@@ -32,7 +19,7 @@ Bloom Basket uses a nature-inspired visual theme featuring forest green, soft gr
 
 The design includes rounded cards, subtle shadows, clear typography, a spending dashboard, and a progress indicator to create a pleasant shopping experience.
 
-## 📂 Project Structure
+ Project Structure
 
 ```text
 bloom-basket/
@@ -47,7 +34,7 @@ bloom-basket/
 - `index.js` — contains the application logic and local storage functionality.
 - `README.md` — documents the project and explains how to use it.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the repository
 
@@ -71,7 +58,7 @@ Open `index.html` in your browser, or open the project in Visual Studio Code and
 
 No additional JavaScript packages or installation commands are required for the basic version.
 
-## 📖 How to Use
+##  How to Use
 
 1. Open Bloom Basket in your browser.
 2. Enter the name of an item.
@@ -85,7 +72,7 @@ No additional JavaScript packages or installation commands are required for the 
 
 Your list is saved in your browser using local storage. Clearing browser site data may remove the saved information.
 
-## 🧠 What I Learned
+##  What I Learned
 
 This project provides practical experience with:
 
@@ -99,7 +86,7 @@ This project provides practical experience with:
 - Saving and retrieving information using browser local storage.
 - Updating totals and progress indicators dynamically.
 
-## 🔮 Future Improvements
+##  Future Improvements
 
 Possible improvements for future versions include:
 
@@ -110,14 +97,14 @@ Possible improvements for future versions include:
 - Multiple shopping lists for different occasions.
 - A checkout summary and printable shopping list.
 
-## 👨‍💻 Author
+##  Author
 
 Developed as a learning project to practise HTML, CSS, JavaScript, and DOM manipulation.
 
-## 📄 License
+## License
 
 This project is available for educational and personal use. Add a formal license if you intend to distribute it under specific terms.
 
 ---
 
-**Bloom Basket 🌿 — Plan your shopping. Track your spending. Make every purchase count.**
+**Bloom Basket  — Plan your shopping. Track your spending. Make every purchase count.**
