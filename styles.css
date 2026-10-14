@@ -6,6 +6,7 @@
       background: #fbfaf5;
       color: #23372f;
       font-family: Arial, sans-serif;
+
     }
 
     .basket {
@@ -15,7 +16,7 @@
 
     header {
       background: #153f35;
-      color: white;
+      color: rgb(255, 255, 255);
       padding: 35px 25px;
       border-radius: 20px;
       margin-bottom: 25px;
@@ -124,7 +125,7 @@
       color: #7c8c82;
     }
 
-    .clear { background: #a43f3f; }
+    .clear { background: #9f0404; }
     #status { color: #24765b; }
 
     [hidden] { display: none !important; }

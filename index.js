@@ -1,244 +1,53 @@
-
 document.addEventListener("DOMContentLoaded", () => {
-  
-  let items = [];
+  let items = JSON.parse(localStorage.getItem("bloomBasketItems") || "[]");
 
- 
-  try {
-    items = JSON.parse(
-      localStorage.getItem("bloomBasketItems") || "[]"
-    );
-
-    if (
-      !Array.isArray(items) ||
-      !items.every(
-        item =>
-          item &&
-          typeof item.id === "string" &&
-          typeof item.name === "string" &&
-          typeof item.price === "number" &&
-          Number.isFinite(item.price) &&
-          item.price >= 0 &&
-          typeof item.purchased === "boolean"
-      )
-    ) {
-      items = [];
-    }
-  } catch {
-    items = [];
-  }
-
-  
   const form = document.querySelector("#shopping-form");
   const nameInput = document.querySelector("#item-name");
   const priceInput = document.querySelector("#item-price");
-  const searchInput = document.querySelector("#search");
+  const search = document.querySelector("#search");
   const list = document.querySelector("#shopping-list");
-  const emptyMessage = document.querySelector("#empty");
-  const status = document.querySelector("#status");
 
-  const money = amount =>
-    new Intl.NumberFormat("en-KE", {
-      style: "currency",
-      currency: "KES"
-    }).format(amount);
-
-  
-  function saveItems() {
-    try {
-      localStorage.setItem(
-        "bloomBasketItems",
-        JSON.stringify(items)
-      );
-      status.textContent = "✓ Shopping list saved!";
-    } catch {
-      status.textContent = "Could not save. Check browser storage.";
-    }
-  }
-
- 
-  function renderItems() {
+  function render() {
     list.replaceChildren();
-
-    const search = searchInput.value.trim().toLowerCase();
-
-    const filteredItems = items.filter(item =>
-      item.name.toLowerCase().includes(search)
-    );
-
-    emptyMessage.hidden = filteredItems.length > 0;
-
-    if (items.length === 0) {
-      emptyMessage.textContent =
-        "Your basket is empty. Add your first item!";
-    } else {
-      emptyMessage.textContent = "No matching items found.";
-    }
-
-    filteredItems.forEach(item => {
+    const filtered = items.filter(i => i.name.toLowerCase().includes(search.value.toLowerCase()));
+    filtered.forEach(item => {
       const li = document.createElement("li");
-      li.className = "shopping-item";
-
-      if (item.purchased) {
-        li.classList.add("purchased");
-      }
-
-      const details = document.createElement("div");
-      details.className = "details";
-
-      const name = document.createElement("strong");
-      name.textContent = item.name;
-
-      const price = document.createElement("span");
-      price.textContent = money(item.price);
-
-      details.append(name, price);
-
-      const actions = document.createElement("div");
-      actions.className = "actions";
-
-      const buyButton = document.createElement("button");
-      buyButton.textContent = item.purchased
-        ? "Undo"
-        : "Purchased";
-
-      buyButton.addEventListener("click", () => {
-        item.purchased = !item.purchased;
-        saveItems();
-        renderItems();
-      });
-
-      const editButton = document.createElement("button");
-      editButton.textContent = "Edit";
-
-      editButton.addEventListener("click", () => {
-        const newName = prompt("New item name:", item.name);
-
-        if (newName === null) return;
-
-        if (!newName.trim()) {
-          alert("Please enter an item name.");
-          return;
-        }
-
-        const newPriceText = prompt(
-          "New price in KSh:",
-          String(item.price)
-        );
-
-        if (newPriceText === null) return;
-
-        const newPrice = Number(newPriceText.trim());
-
-        if (
-          !newPriceText.trim() ||
-          !Number.isFinite(newPrice) ||
-          newPrice < 0
-        ) {
-          alert("Enter a valid price of zero or more.");
-          return;
-        }
-
-        item.name = newName.trim();
-        item.price = newPrice;
-
-        saveItems();
-        renderItems();
-      });
-
-      const removeButton = document.createElement("button");
-      removeButton.textContent = "Remove";
-
-      removeButton.addEventListener("click", () => {
-        items = items.filter(current => current.id !== item.id);
-        saveItems();
-        renderItems();
-      });
-
-      actions.append(buyButton, editButton, removeButton);
-      li.append(details, actions);
+      li.textContent = `${item.name} - KSh ${item.price} `;
+      if (item.purchased) li.style.textDecoration = "line-through";
+      const buy = document.createElement("button");
+      buy.textContent = item.purchased ? "Undo" : "Purchased";
+      buy.onclick = () => { item.purchased = !item.purchased; save(); render(); };
+      const remove = document.createElement("button");
+      remove.textContent = "Remove";
+      remove.onclick = () => { items = items.filter(i => i.id !== item.id); save(); render(); };
+      li.append(buy, remove);
       list.appendChild(li);
     });
-
-    // Calculate shopping statistics
-    const purchased = items.filter(item => item.purchased);
-    const remaining = items.length - purchased.length;
-
-    const spent = purchased.reduce(
-      (sum, item) => sum + item.price,
-      0
-    );
-
-    const percentage = items.length
-      ? Math.round((purchased.length / items.length) * 100)
-      : 0;
-
-    document.querySelector("#total").textContent = money(spent);
+    const spent = items.filter(i => i.purchased).reduce((sum, i) => sum + i.price, 0);
+    document.querySelector("#total").textContent = `KSh ${spent}`;
     document.querySelector("#count").textContent = items.length;
-    document.querySelector("#bought").textContent = purchased.length;
-    document.querySelector("#remaining").textContent = remaining;
-    document.querySelector("#progress").style.width =
-      `${percentage}%`;
-    document.querySelector("#progress-text").textContent =
-      `${percentage}% completed`;
+    document.querySelector("#bought").textContent = items.filter(i => i.purchased).length;
+    document.querySelector("#remaining").textContent = items.filter(i => !i.purchased).length;
+  }
+
+  function save() {
+    localStorage.setItem("bloomBasketItems", JSON.stringify(items));
   }
 
   form.addEventListener("submit", event => {
     event.preventDefault();
-
     const name = nameInput.value.trim();
-    const priceText = priceInput.value.trim();
-    const price = Number(priceText);
-
-    if (!name) {
-      alert("Please enter an item name.");
-      return;
-    }
-
-    if (
-      !priceText ||
-      !Number.isFinite(price) ||
-      price < 0
-    ) {
-      alert("Please enter a valid price of zero or more.");
-      return;
-    }
-
-    items.push({
-      id: `${Date.now()}-${Math.random()}`,
-      name,
-      price,
-      purchased: false
-    });
-
-    saveItems();
+    const price = Number(priceInput.value);
+    if (!name || priceInput.value.trim() === "" || !Number.isFinite(price) || price < 0) return alert("Enter a valid item and price.");
+    items.push({ id: String(Date.now()) + Math.random(), name, price, purchased: false });
+    save();
     form.reset();
-    renderItems();
-    nameInput.focus();
+    render();
   });
 
-  // 8. Search items
-  searchInput.addEventListener("input", renderItems);
-
-  // 9. Clear the list
+  search.addEventListener("input", render);
   document.querySelector("#clear").addEventListener("click", () => {
-    if (items.length === 0) {
-      alert("Your list is already empty.");
-      return;
-    }
-
-    if (confirm("Clear your entire shopping list?")) {
-      items = [];
-      saveItems();
-      renderItems();
-    }
+    if (confirm("Clear your shopping list?")) { items = []; save(); render(); }
   });
-
-
-  const style = document.createElement("style");
-
-
-  document.head.appendChild(style);
-
-  renderItems();
+  render();
 });
